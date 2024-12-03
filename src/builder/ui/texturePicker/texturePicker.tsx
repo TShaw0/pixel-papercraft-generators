@@ -132,7 +132,7 @@ export function Search({
     <div className="relative flex items-center mb-4">
       <input
         className="border w-full p-2"
-        placeholder="Search ..."
+        placeholder="Search..."
         value={value}
         onChange={onInputChange}
       />
