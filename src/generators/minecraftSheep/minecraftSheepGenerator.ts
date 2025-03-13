@@ -26,7 +26,7 @@ import ragdollImage from "./textures/ragdoll.png";
 import siameseImage from "./textures/siamese.png";
 import tabbyImage from "./textures/tabby.png";
 import blackImage from "./textures/black.png";
-import sheepCollarImage from "./textures/sheep_collar.png";
+import catCollarImage from "./textures/cat_collar.png";
 import whiteImage from "./textures/white.png";
 
 const id = "minecraft-sheep";
@@ -42,7 +42,7 @@ const thumbnail: ThumbnailDef = {
 };
 
 const instructions = `
-## How to use the Minecraft sheep Generator?
+## How to use the Minecraft Sheep Generator?
 
 ### Option 1: Use a texture pack or mod sheep skin
 
@@ -67,9 +67,9 @@ const images: ImageDef[] = [
 ];
 
 const textures: TextureDef[] = [
-  // "sheep" texture is the default texture to show when the generator loads
+  // "Sheep" texture is the default texture to show when the generator loads
   {
-    id: "sheep",
+    id: "Sheep",
     url: ocelotImage.src,
     standardWidth: 64,
     standardHeight: 32,
@@ -147,8 +147,8 @@ const textures: TextureDef[] = [
     standardHeight: 32,
   },
   {
-    id: "sheep Collar",
-    url: sheepCollarImage.src,
+    id: "Sheep Collar",
+    url: catCollarImage.src,
     standardWidth: 64,
     standardHeight: 32,
   },
@@ -157,7 +157,7 @@ const textures: TextureDef[] = [
 const script: ScriptDef = (generator: Generator) => {
   // Define user inputs
 
-  generator.defineTextureInput("sheep", {
+  generator.defineTextureInput("Sheep", {
     standardWidth: 64,
     standardHeight: 32,
     choices: [
@@ -179,7 +179,7 @@ const script: ScriptDef = (generator: Generator) => {
   generator.defineTextureInput("Collar", {
     standardWidth: 64,
     standardHeight: 32,
-    choices: ["sheep Collar"],
+    choices: ["Sheep Collar"],
   });
 
   // Define user variables
@@ -251,9 +251,9 @@ const script: ScriptDef = (generator: Generator) => {
   const showFolds = generator.getBooleanInputValue("Show Folds");
   const showLabels = generator.getBooleanInputValue("Show Labels");
 
-  // Draw sheep
+  // Draw Sheep
 
-  const drawsheep = (texture: string, tint: string) => {
+  const drawSheep = (texture: string, tint: string) => {
     // Head
 
     generator.drawTexture(texture, [0, 5, 20, 4], [40, 73, 160, 32], {
@@ -445,8 +445,8 @@ const script: ScriptDef = (generator: Generator) => {
     }); //bottom
   };
 
-  drawsheep("sheep", "None"); // draw sheep
-  drawsheep("Collar", collarColor); // draw collar
+  drawSheep("Sheep", "None"); // draw sheep
+  drawSheep("Collar", collarColor); // draw collar
 
   // Background
 
