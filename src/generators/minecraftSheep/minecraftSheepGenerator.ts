@@ -184,7 +184,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   // Define user variables
 
-  generator.defineSelectInput("Collar Color", [
+  generator.defineSelectInput("Wool Color", [
     "Black",
     "Red",
     "Green",
@@ -209,8 +209,8 @@ const script: ScriptDef = (generator: Generator) => {
 
   // Get user variable values
 
-  const collarColor = (() => {
-    switch (generator.getSelectInputValue("Collar Color")) {
+  const woolColor = (() => {
+    switch (generator.getSelectInputValue("Wool Color")) {
       case "Black":
         return "1D1D21";
       case "Red":
@@ -251,202 +251,42 @@ const script: ScriptDef = (generator: Generator) => {
   const showFolds = generator.getBooleanInputValue("Show Folds");
   const showLabels = generator.getBooleanInputValue("Show Labels");
 
+  function getGridOrigin(x: number, y: number): [number, number] {
+    return [9 + 32 * x, 5 + 32 * y];
+  }
+
   // Draw Sheep
-
   const drawSheep = (texture: string, tint: string) => {
-    // Head
+    // Draw Head
+    function drawHead([ox, oy]: [number, number]) {
+    }
 
-    generator.drawTexture(texture, [0, 5, 20, 4], [40, 73, 160, 32], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // all sides
-    generator.drawTexture(texture, [5, 0, 5, 5], [80, 33, 40, 40], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // Top
-    generator.drawTexture(texture, [10, 0, 5, 5], [80, 105, 40, 40], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // Bottom
+    // Draw Body
+      function drawBody([ox, oy]: [number, number]) {
+      }
+    // Draw Leg
+      function drawLeg([ox, oy]: [number, number]) {
+      }
 
-    // Body
+  };
 
-    generator.drawTexture(texture, [20, 6, 6, 16], [40, 241, 48, 128], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // left
-    generator.drawTexture(texture, [26, 6, 4, 16], [88, 241, 32, 128], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // front
-    generator.drawTexture(texture, [30, 6, 6, 16], [120, 241, 48, 128], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // right
-    generator.drawTexture(texture, [36, 6, 4, 16], [168, 241, 32, 128], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // back
-    generator.drawTexture(texture, [26, 0, 4, 6], [88, 193, 32, 48], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [30, 0, 4, 6], [88, 369, 32, 48], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-    // Back Left Leg
-    generator.drawTexture(texture, [8, 17, 8, 4], [251, 336, 64, 32], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // leg1
-    generator.drawTexture(texture, [10, 13, 2, 2], [267, 320, 16, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [10, 13, 2, 2], [267, 368, 16, 16], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-    // Back Right Leg
-    generator.drawTexture(texture, [8, 17, 8, 4], [340, 336, 64, 32], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // leg1
-    generator.drawTexture(texture, [10, 13, 2, 2], [356, 320, 16, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [10, 13, 2, 2], [356, 368, 16, 16], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
+  // Draw Wool
+  const drawWool = (texture: string, tint: string) => {
+          // Draw Head
+    function drawHead([ox, oy]: [number, number]) {
+    }
 
-    // Front Left Leg
-
-    generator.drawTexture(texture, [40, 8, 8, 4], [251, 248, 64, 32], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // leg (all sides)
-    generator.drawTexture(texture, [42, 0, 2, 2], [267, 232, 16, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [44, 0, 2, 2], [267, 280, 16, 16], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-    // Front Right Leg
-    generator.drawTexture(texture, [40, 8, 8, 4], [340, 248, 64, 32], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // leg (all sides)
-    generator.drawTexture(texture, [42, 0, 2, 2], [356, 232, 16, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [44, 0, 2, 2], [356, 280, 16, 16], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-
-    // Tail
-
-    // top
-
-    generator.drawTexture(texture, [2, 16, 1, 8], [469, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // right
-    generator.drawTexture(texture, [3, 16, 1, 8], [477, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // back
-    generator.drawTexture(texture, [0, 16, 1, 8], [485, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // left
-    generator.drawTexture(texture, [1, 16, 1, 8], [493, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // front
-    generator.drawTexture(texture, [2, 15, 1, 1], [477, 358, 8, 8], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-
-    // bottom
-
-    generator.drawTexture(texture, [6, 16, 1, 8], [541, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // right
-    generator.drawTexture(texture, [7, 16, 1, 8], [549, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // back
-    generator.drawTexture(texture, [4, 16, 1, 8], [557, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // left
-    generator.drawTexture(texture, [5, 16, 1, 8], [565, 294, 8, 64], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // front
-    generator.drawTexture(texture, [6, 15, 1, 1], [549, 358, 8, 8], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-
-    // Nose
-
-    generator.drawTexture(texture, [2, 26, 3, 2], [256, 80, 24, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // front
-    generator.drawTexture(texture, [2, 25, 3, 1], [256, 72, 24, 8], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // top
-    generator.drawTexture(texture, [5, 26, 1, 2], [280, 80, 8, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // right
-    generator.drawTexture(texture, [1, 26, 1, 2], [248, 80, 8, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // left
-    generator.drawTexture(texture, [5, 25, 3, 1], [256, 96, 24, 8], {
-      flip: "Vertical",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); // bottom
-
-    // Ears
-
-    // left
-
-    generator.drawTexture(texture, [6, 12, 2, 1], [253, 161, 16, 8], {
-      rotateLegacy: 90.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //left
-    generator.drawTexture(texture, [8, 12, 1, 1], [253, 177, 8, 8], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //front
-    generator.drawTexture(texture, [9, 12, 2, 1], [261, 177, 16, 8], {
-      rotateLegacy: -90.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //right
-    generator.drawTexture(texture, [11, 12, 1, 1], [261, 161, 8, 8], {
-      rotateLegacy: 180.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //back
-    generator.drawTexture(texture, [8, 10, 1, 2], [253, 161, 8, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //top
-    generator.drawTexture(texture, [9, 10, 1, 2], [269, 161, 8, 16], {
-      flip: "Horizontal",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //bottom
-    // right
-    generator.drawTexture(texture, [0, 12, 2, 1], [176, 161, 16, 8], {
-      rotateLegacy: 90.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //left
-    generator.drawTexture(texture, [2, 12, 1, 1], [176, 177, 8, 8], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //front
-    generator.drawTexture(texture, [3, 12, 2, 1], [184, 177, 16, 8], {
-      rotateLegacy: -90.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //right
-    generator.drawTexture(texture, [5, 12, 1, 1], [184, 161, 8, 8], {
-      rotateLegacy: 180.0,
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //back
-    generator.drawTexture(texture, [2, 10, 1, 2], [176, 161, 8, 16], {
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //top
-    generator.drawTexture(texture, [3, 10, 1, 2], [192, 161, 8, 16], {
-      flip: "Horizontal",
-      blend: { kind: "MultiplyHex", hex: tint },
-    }); //bottom
+    // Draw Body
+      function drawBody([ox, oy]: [number, number]) {
+      }
+    // Draw Leg
+      function drawLeg([ox, oy]: [number, number]) {
+      }
   };
 
   drawSheep("Sheep", "None"); // draw sheep
-  drawSheep("Collar", collarColor); // draw collar
+  drawSheep("Sheep Undercoat", woolColor) // draw undercoat
+  drawWool("Wool", woolColor); // draw collar
 
   // Background
 
