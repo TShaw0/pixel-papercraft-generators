@@ -10,7 +10,11 @@ import type {
 } from "@genroot/builder/modules/generatorDef";
 import { type Generator } from "@genroot/builder/modules/generator";
 
-import thumnbailImage from "./thumbnail/thumbnail-v2-256.jpeg";
+import sheepImage from "./textures/sheep.png";
+import woolSheepImage from "./textures/sheep_wool.png";
+import undercoatSheepImage from "./textures/sheep_wool_undercoat.png";
+
+import sheepImage from "./textures/sheep.png";
 import whitesheepImage from "./textures/white.png";
 import backgroundImage from "./images/Background.png";
 import foldsImage from "./images/Folds.png";
