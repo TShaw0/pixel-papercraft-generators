@@ -11,14 +11,13 @@ import type {
 import { type Generator } from "@genroot/builder/modules/generator";
 
 import sheepImage from "./textures/sheep.png";
-import woolSheepImage from "./textures/sheep_wool.png";
-import undercoatSheepImage from "./textures/sheep_wool_undercoat.png";
+import sheepWoolImage from "./textures/sheep_wool.png";
+import sheepUndercoatImage from "./textures/sheep_wool_undercoat.png";
 
-import sheepImage from "./textures/sheep.png";
-import whitesheepImage from "./textures/white.png";
-import backgroundImage from "./images/Background.png";
+import foregroundImage from "./images/Foreground.png";
 import foldsImage from "./images/Folds.png";
 import labelsImage from "./images/Labels.png";
+
 import ocelotImage from "./textures/ocelot.png";
 import allBlackImage from "./textures/all_black.png";
 import britishShorthairImage from "./textures/british_shorthair.png";
@@ -33,6 +32,8 @@ import blackImage from "./textures/black.png";
 import catCollarImage from "./textures/cat_collar.png";
 import whiteImage from "./textures/white.png";
 
+import thumbnailImage from "./thumbnail/thumbnail-256.jpeg";
+
 const id = "minecraft-sheep";
 
 const name = "Minecraft Sheep";
@@ -42,30 +43,11 @@ const history: HistoryDef = [
 ];
 
 const thumbnail: ThumbnailDef = {
-  url: thumnbailImage.src,
+  url: thumbnailImage.src,
 };
 
-const instructions = `
-## How to use the Minecraft Sheep Generator?
-
-### Option 1: Use a texture pack or mod sheep skin
-
-* Download your favourite texture pack or mod.
-* Find a sheep texture file.
-* Select this file in the generator.
-* Download and print your new sheep papercraft.
-
-## Option 2: Create your own sheep texture file
-
-* Download a sample sheep texture (right click and save):
-  ![Car Texture](${whitesheepImage.src})
-* Edit this texture in your favourite graphics program.
-* Select this file in the generator.
-* Download and print your new sheep papercraft.
-`;
-
 const images: ImageDef[] = [
-  { id: "Background", url: backgroundImage.src },
+  { id: "Foreground", url: foregroundImage.src },
   { id: "Folds", url: foldsImage.src },
   { id: "Labels", url: labelsImage.src },
 ];
@@ -255,15 +237,15 @@ const script: ScriptDef = (generator: Generator) => {
   const showFolds = generator.getBooleanInputValue("Show Folds");
   const showLabels = generator.getBooleanInputValue("Show Labels");
 
-  function getGridOrigin(x: number, y: number): [number, number] {
+  /* function getGridOrigin(x: number, y: number): [number, number] {
     return [9 + 32 * x, 5 + 32 * y];
-  }
+  } */
 
   // Draw Sheep
   const drawSheep = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
-    }
+      }
 
     // Draw Body
       function drawBody([ox, oy]: [number, number]) {
@@ -271,6 +253,10 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Leg
       function drawLeg([ox, oy]: [number, number]) {
       }
+
+      drawHead([0, 0]);
+      drawBody([0, 0]);
+      drawLeg([0, 0]);
 
   };
 
@@ -286,6 +272,10 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Leg
       function drawLeg([ox, oy]: [number, number]) {
       }
+
+      drawHead([0, 0]);
+      drawBody([0, 0]);
+      drawLeg([0, 0]);
   };
 
   drawSheep("Sheep", "None"); // draw sheep
@@ -294,7 +284,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   // Background
 
-  generator.drawImage("Background", [0, 0]);
+  generator.drawImage("Foreground", [0, 0]);
 
   //Fold Lines
 
@@ -315,7 +305,7 @@ export const generator: GeneratorDef = {
   history,
   thumbnail,
   video: null,
-  instructions,
+  instructions: null,
   images,
   textures,
   script,
