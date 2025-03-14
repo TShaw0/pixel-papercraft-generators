@@ -43,13 +43,13 @@ export type Sheep = {
 
 export const sheep: Sheep = {
   head: translate(cuboid([6,6,8]), [0,0]),
-  body: translate(cuboid([6,16,8]), [28,8]),
+  body: translate(cuboid([8,16,6]), [28,8]),
   leg: translate(cuboid([4,12,4]), [0,16]),
 };
 
 export const wool: Sheep = {
   head: translate(cuboid([6,6,6]), [0,0]),
-  body: translate(cuboid([6,16,8]), [28,8]),
+  body: translate(cuboid([8,16,6]), [28,8]),
   leg: translate(cuboid([4,6,4]), [0,16]),
 };
 
