@@ -76,11 +76,18 @@ const script: ScriptDef = (generator: Generator) => {
     ],
   });
 
+  generator.defineTextureInput("Sheep Wool", {
+    standardWidth: 64,
+    standardHeight: 32,
+    choices: ["Sheep Wool"],
+  });
+
   generator.defineTextureInput("Sheep Undercoat", {
     standardWidth: 64,
     standardHeight: 32,
     choices: ["Sheep Undercoat"],
   });
+
 
   // Define user variables
 
@@ -171,20 +178,27 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Leg
     function drawLeg([ox, oy]: [number, number], leftSide: boolean,) {
       const dimensions: Dimensions = [32, 96, 32];
-      minecraftGenerator.drawCuboid(texture, sheep.leg, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
+      if (leftSide){
+        minecraftGenerator.drawCuboid(texture, sheep.leg, [ox, oy], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
+      }
+      else {
+        minecraftGenerator.drawCuboid(texture, sheep.leg, [ox, oy], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
+      }
     }
+    
     let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
     drawHead([ox, oy]); 
     [ox, oy] = getGridOrigin([1, 17], [0, 0]);
     drawBody([ox, oy]);
-    //[ox, oy] = getGridOrigin([0, 0], [0, 0]);
-    //drawLeg([ox, oy], false);
-    //[ox, oy] = getGridOrigin([0, 0], [0, 0]);
-    //drawLeg([ox, oy], false);
-    //[ox, oy] = getGridOrigin([0, 0], [0, 0]);
-    //drawLeg([ox, oy], true);
-    //[ox, oy] = getGridOrigin([0, 0], [0, 0]);
-    //drawLeg([ox, oy], true);
+    [ox, oy] = getGridOrigin([0, 11], [12, 0]);
+    drawLeg([ox, oy], false);
+    [ox, oy] = getGridOrigin([5, 11], [-4, 0]);
+    drawLeg([ox, oy], false);
+    [ox, oy] = getGridOrigin([10, 11], [-28, 0]);
+    drawLeg([ox, oy], true);
+    [ox, oy] = getGridOrigin([15, 11], [-44, 0]);
+    drawLeg([ox, oy], true);
+
 
   };
 
@@ -192,25 +206,45 @@ const script: ScriptDef = (generator: Generator) => {
   const drawWool = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
-      const dimensions: Dimensions = [48, 48, 64];
+      const dimensions: Dimensions = [52, 52, 52];
       minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
     }
 
     // Draw Body
-      // function drawBody([ox, oy]: [number, number]) {
-      // }
+    function drawBody([ox, oy]: [number, number]) {
+      const dimensions: Dimensions = [78, 142, 62];
+      minecraftGenerator.drawCuboid(texture, wool.body, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
+    }
     // Draw Leg
-      // function drawLeg([ox, oy]: [number, number]) {
-      // }
+    function drawLeg([ox, oy]: [number, number], leftSide: boolean,) {
+      const dimensions: Dimensions = [36, 52, 36];
+      if (leftSide){
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
+      }
+      else {
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
+      }
+    }
+    
+    let [ox, oy] = getGridOrigin([0, 6], [16, -8]);
+    drawHead([ox, oy]); 
+    [ox, oy] = getGridOrigin([7, 17], [66, -12]);
+    drawBody([ox, oy]);
+    [ox, oy] = getGridOrigin([8, 1], [0, -4]);
+    drawLeg([ox, oy], false);
+    [ox, oy] = getGridOrigin([13, 1], [0, -4]);
+    drawLeg([ox, oy], true);
+    [ox, oy] = getGridOrigin([8, 6], [0, 8]);
+    drawLeg([ox, oy], false);
+    [ox, oy] = getGridOrigin([13, 6], [0, 8]);
+    drawLeg([ox, oy], true);
 
-      drawHead([200, 200]);
-      // drawBody([0, 0]);
-      // drawLeg([0, 0]);
+
   };
 
   drawSheep("Sheep", "None"); // draw sheep
   drawSheep("Sheep Undercoat", woolColor) // draw undercoat
-  drawWool("Wool", woolColor); // draw collar
+  drawWool("Sheep Wool", woolColor); // draw collar
 
   // Background
 
