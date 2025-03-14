@@ -85,6 +85,7 @@ const script: ScriptDef = (generator: Generator) => {
   // Define user variables
 
   generator.defineSelectInput("Sheep Wool Color", [
+    "White",
     "Black",
     "Red",
     "Green",
@@ -100,7 +101,6 @@ const script: ScriptDef = (generator: Generator) => {
     "Light Blue",
     "Magenta",
     "Orange",
-    "White",
   ]);
 
   generator.defineBooleanInput("Show Folds", true);
@@ -144,7 +144,7 @@ const script: ScriptDef = (generator: Generator) => {
       case "White":
         return "F9FFFE";
       default:
-        return "B02E26";
+        return "F9FFFE";
     }
   })();
 
@@ -163,17 +163,22 @@ const script: ScriptDef = (generator: Generator) => {
       minecraftGenerator.drawCuboid(texture, sheep.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
     }
 
-    // // Draw Body
-    //   function drawBody([ox, oy]: [number, number]) {
-    //   }
-    // // Draw Leg
-    //   function drawLeg([ox, oy]: [number, number]) {
-    //   }
-      let [ox, oy] = getGridOrigin([0, 0], [8, 0]);    
-      drawHead([ox, oy]);
-      ox, oy = getGridOrigin([0, 0], [8, 0]);   
-      // drawBody([0, 0]);
-      // drawLeg([0, 0]);
+    // Draw Body
+    function drawBody([ox, oy]: [number, number]) {
+      const dimensions: Dimensions = [48, 128, 64];
+      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
+    }
+    // Draw Leg
+    function drawLeg([ox, oy]: [number, number]) {
+      const dimensions: Dimensions = [32, 96, 32];
+      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
+    }
+    let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
+    drawHead([ox, oy]); 
+    ox, oy = getGridOrigin([1, 17], [0, 0]);
+    drawBody([ox, oy]);
+    ox, oy = getGridOrigin([0, 0], [0, 0]);
+    drawLeg([ox, oy]);
 
   };
 
