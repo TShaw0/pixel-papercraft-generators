@@ -160,7 +160,7 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
       const dimensions: Dimensions = [48, 48, 64];
-      minecraftGenerator.drawCuboid(texture, sheep.head, [ox, oy], dimensions, {blend: {kind: "MultiplyHex", hex: tint}});
+      minecraftGenerator.drawCuboid(texture, sheep.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
     }
 
     // // Draw Body
@@ -181,7 +181,7 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
       const dimensions: Dimensions = [48, 48, 64];
-      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, {blend: {kind: "MultiplyHex", hex: tint}});
+      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
     }
 
     // Draw Body
