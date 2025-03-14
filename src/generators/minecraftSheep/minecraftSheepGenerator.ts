@@ -166,7 +166,7 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Body
     function drawBody([ox, oy]: [number, number]) {
       const dimensions: Dimensions = [48, 128, 64];
-      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
+      minecraftGenerator.drawCuboid(texture, sheep.body, [ox, oy], dimensions, { blend: { kind: "MultiplyHex", hex: tint } });
     }
     // Draw Leg
     function drawLeg([ox, oy]: [number, number]) {
@@ -175,9 +175,9 @@ const script: ScriptDef = (generator: Generator) => {
     }
     let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
     drawHead([ox, oy]); 
-    ox, oy = getGridOrigin([1, 17], [0, 0]);
+    [ox, oy] = getGridOrigin([1, 16.75], [0, 0]);
     drawBody([ox, oy]);
-    ox, oy = getGridOrigin([0, 0], [0, 0]);
+    [ox, oy] = getGridOrigin([0, 0], [0, 0]);
     drawLeg([ox, oy]);
 
   };
