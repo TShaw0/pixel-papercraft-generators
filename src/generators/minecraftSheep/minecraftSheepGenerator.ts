@@ -10,6 +10,10 @@ import type {
 } from "@genroot/builder/modules/generatorDef";
 import { type Generator } from "@genroot/builder/modules/generator";
 
+import { sheep, wool } from "../_common/minecraftEntities";
+import { type Dimensions, Minecraft } from "../_common/minecraft";
+
+
 import sheepImage from "./textures/sheep.png";
 import sheepWoolImage from "./textures/sheep_wool.png";
 import sheepUndercoatImage from "./textures/sheep_wool_undercoat.png";
@@ -18,19 +22,6 @@ import foregroundImage from "./images/Foreground.png";
 import foldsImage from "./images/Folds.png";
 import labelsImage from "./images/Labels.png";
 
-import ocelotImage from "./textures/ocelot.png";
-import allBlackImage from "./textures/all_black.png";
-import britishShorthairImage from "./textures/british_shorthair.png";
-import calicoImage from "./textures/calico.png";
-import jellieImage from "./textures/jellie.png";
-import redImage from "./textures/red.png";
-import persianImage from "./textures/persian.png";
-import ragdollImage from "./textures/ragdoll.png";
-import siameseImage from "./textures/siamese.png";
-import tabbyImage from "./textures/tabby.png";
-import blackImage from "./textures/black.png";
-import catCollarImage from "./textures/cat_collar.png";
-import whiteImage from "./textures/white.png";
 
 import thumbnailImage from "./thumbnail/thumbnail-256.jpeg";
 
@@ -56,121 +47,44 @@ const textures: TextureDef[] = [
   // "Sheep" texture is the default texture to show when the generator loads
   {
     id: "Sheep",
-    url: ocelotImage.src,
+    url: sheepImage.src,
     standardWidth: 64,
     standardHeight: 32,
   },
   {
-    id: "Black",
-    url: allBlackImage.src,
+    id: "Sheep Wool",
+    url: sheepWoolImage.src,
     standardWidth: 64,
     standardHeight: 32,
   },
   {
-    id: "British Shorthair",
-    url: britishShorthairImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Calico",
-    url: calicoImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Jellie",
-    url: jellieImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Ocelot",
-    url: ocelotImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Orange Tabby",
-    url: redImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Persian",
-    url: persianImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Ragdoll",
-    url: ragdollImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Siamese",
-    url: siameseImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Tabby",
-    url: tabbyImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Tuxedo",
-    url: blackImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "White",
-    url: whiteImage.src,
-    standardWidth: 64,
-    standardHeight: 32,
-  },
-  {
-    id: "Sheep Collar",
-    url: catCollarImage.src,
+    id: "Sheep Undercoat",
+    url: sheepUndercoatImage.src,
     standardWidth: 64,
     standardHeight: 32,
   },
 ];
 
 const script: ScriptDef = (generator: Generator) => {
-  // Define user inputs
+  const minecraftGenerator = new Minecraft(generator);
 
   generator.defineTextureInput("Sheep", {
     standardWidth: 64,
     standardHeight: 32,
     choices: [
-      "Black",
-      "British Shorthair",
-      "Calico",
-      "Jellie",
-      "Ocelot",
-      "Orange Tabby",
-      "Persian",
-      "Ragdoll",
-      "Siamese",
-      "Tabby",
-      "Tuxedo",
-      "White",
+      "Sheep"
     ],
   });
 
-  generator.defineTextureInput("Collar", {
+  generator.defineTextureInput("Sheep Undercoat", {
     standardWidth: 64,
     standardHeight: 32,
-    choices: ["Sheep Collar"],
+    choices: ["Sheep Undercoat"],
   });
 
   // Define user variables
 
-  generator.defineSelectInput("Wool Color", [
+  generator.defineSelectInput("Sheep Wool Color", [
     "Black",
     "Red",
     "Green",
@@ -196,7 +110,7 @@ const script: ScriptDef = (generator: Generator) => {
   // Get user variable values
 
   const woolColor = (() => {
-    switch (generator.getSelectInputValue("Wool Color")) {
+    switch (generator.getSelectInputValue("Sheep Wool Color")) {
       case "Black":
         return "1D1D21";
       case "Red":
@@ -245,37 +159,41 @@ const script: ScriptDef = (generator: Generator) => {
   const drawSheep = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
-      }
+      const dimensions: Dimensions = [48, 48, 64];
+      minecraftGenerator.drawCuboid(texture, sheep.head, [ox, oy], dimensions, {blend: {kind: "MultiplyHex", hex: tint}});
+    }
 
-    // Draw Body
-      function drawBody([ox, oy]: [number, number]) {
-      }
-    // Draw Leg
-      function drawLeg([ox, oy]: [number, number]) {
-      }
+    // // Draw Body
+    //   function drawBody([ox, oy]: [number, number]) {
+    //   }
+    // // Draw Leg
+    //   function drawLeg([ox, oy]: [number, number]) {
+    //   }
 
       drawHead([0, 0]);
-      drawBody([0, 0]);
-      drawLeg([0, 0]);
+      // drawBody([0, 0]);
+      // drawLeg([0, 0]);
 
   };
 
   // Draw Wool
   const drawWool = (texture: string, tint: string) => {
-          // Draw Head
+    // Draw Head
     function drawHead([ox, oy]: [number, number]) {
+      const dimensions: Dimensions = [48, 48, 64];
+      minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, {blend: {kind: "MultiplyHex", hex: tint}});
     }
 
     // Draw Body
-      function drawBody([ox, oy]: [number, number]) {
-      }
+      // function drawBody([ox, oy]: [number, number]) {
+      // }
     // Draw Leg
-      function drawLeg([ox, oy]: [number, number]) {
-      }
+      // function drawLeg([ox, oy]: [number, number]) {
+      // }
 
-      drawHead([0, 0]);
-      drawBody([0, 0]);
-      drawLeg([0, 0]);
+      drawHead([200, 200]);
+      // drawBody([0, 0]);
+      // drawLeg([0, 0]);
   };
 
   drawSheep("Sheep", "None"); // draw sheep
@@ -284,7 +202,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   // Background
 
-  generator.drawImage("Foreground", [0, 0]);
+  // generator.drawImage("Foreground", [0, 0]);
 
   //Fold Lines
 

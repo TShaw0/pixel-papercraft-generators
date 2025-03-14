@@ -52,3 +52,4 @@ export const wool: Sheep = {
   body: translate(cuboid([6,16,8]), [28,8]),
   leg: translate(cuboid([4,6,4]), [0,16]),
 };
+
