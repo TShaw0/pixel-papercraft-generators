@@ -112,7 +112,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   generator.defineBooleanInput("Show Folds", true);
 
-  generator.defineBooleanInput("Show Labels", true);
+  generator.defineBooleanInput("Show Labels", false);
 
   // Get user variable values
 
@@ -244,7 +244,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   drawSheep("Sheep", "None"); // draw sheep
   drawSheep("Sheep Undercoat", woolColor) // draw undercoat
-  drawWool("Sheep Wool", woolColor); // draw collar
+  drawWool("Sheep Wool", woolColor); // draw collar 
 
   // Background
 
@@ -252,9 +252,67 @@ const script: ScriptDef = (generator: Generator) => {
 
   //Fold Lines
 
-  if (showFolds) {
-    generator.drawImage("Folds", [0, 0]);
+  /* function drawFoldLineRectangle(rectangle: Rectangle) {
+    const [x, y, w, h] = rectangle;
+
+    generator.drawFoldLine([x, y - 1], [x + w, y - 1]);
+    generator.drawFoldLine([x + w, y], [x + w, y + h]);
+    generator.drawFoldLine([x + w, y + h + 1], [x, y + h + 1]);
+    generator.drawFoldLine([x, y + h], [x, y]);
   }
+
+  function drawFoldLineCuboid(
+    position: Position,
+    dimensions: Dimensions,
+    leftSide: boolean = false
+  ): void {
+    const [x, y] = position;
+    const [w, h, l] = dimensions;
+
+    if (!leftSide) {
+      drawFoldLineRectangle([x + l, y, w, l * 2 + h]);
+      drawFoldLineRectangle([x, y + l, l * 2 + w * 2, h]);
+      generator.drawFoldLine(
+        [x + l * 2 + w - 1, y + l],
+        [x + l * 2 + w - 1, y + l + h]
+      );
+    } else {
+      drawFoldLineRectangle([x + l + w, y, w, l * 2 + h]);
+      drawFoldLineRectangle([x, y + l, l * 2 + w * 2, h]);
+      generator.drawFoldLine([x + w, y + l], [x + w, y + l + h]);
+    }
+  }
+
+  if (showFolds) {
+    let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
+    drawFoldLineCuboid([ox, oy], [48, 48, 64]); 
+    [ox, oy] = getGridOrigin([1, 17], [0, 0]);
+    drawFoldLineCuboid([ox, oy], [64, 128, 48]);
+    [ox, oy] = getGridOrigin([0, 11], [12, 0]);
+    drawFoldLineCuboid([ox, oy], [32, 96, 32], false);
+    [ox, oy] = getGridOrigin([5, 11], [-4, 0]);
+    drawFoldLineCuboid([ox, oy], [32, 96, 32], false);
+    [ox, oy] = getGridOrigin([10, 11], [-28, 0]);
+    drawFoldLineCuboid([ox, oy], [32, 96, 32], true);
+    [ox, oy] = getGridOrigin([15, 11], [-44, 0]);
+    drawFoldLineCuboid([ox, oy], [32, 96, 32], true);
+
+    [ox, oy] = getGridOrigin([0, 6], [16, -8]);
+    drawFoldLineCuboid([ox, oy], [52, 52, 52]); 
+    [ox, oy] = getGridOrigin([7, 17], [66, -12]);
+    drawFoldLineCuboid([ox, oy], [78, 142, 62]);
+    [ox, oy] = getGridOrigin([8, 1], [0, -4]);
+    drawFoldLineCuboid([ox, oy], [36, 52, 36], false);
+    [ox, oy] = getGridOrigin([13, 1], [0, -4]);
+    drawFoldLineCuboid([ox, oy], [36, 52, 36], true);
+    [ox, oy] = getGridOrigin([8, 6], [0, 8]);
+    drawFoldLineCuboid([ox, oy], [36, 52, 36], false);
+    [ox, oy] = getGridOrigin([13, 6], [0, 8]);
+    drawFoldLineCuboid([ox, oy], [36, 52, 36], true);
+  }*/
+if (showFolds) {
+  generator.drawImage("Folds", [0, 0])
+}
 
   // Labels
 
