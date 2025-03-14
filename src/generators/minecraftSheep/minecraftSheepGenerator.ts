@@ -151,9 +151,9 @@ const script: ScriptDef = (generator: Generator) => {
   const showFolds = generator.getBooleanInputValue("Show Folds");
   const showLabels = generator.getBooleanInputValue("Show Labels");
 
-  /* function getGridOrigin(x: number, y: number): [number, number] {
-    return [9 + 32 * x, 5 + 32 * y];
-  } */
+  function getGridOrigin([gx, gy]: [number, number], [dx, dy]: [number, number]): [number, number] {
+    return [dx + 9 + 32 * gx, dy + 5 + 32 * gy];
+  } 
 
   // Draw Sheep
   const drawSheep = (texture: string, tint: string) => {
@@ -169,8 +169,9 @@ const script: ScriptDef = (generator: Generator) => {
     // // Draw Leg
     //   function drawLeg([ox, oy]: [number, number]) {
     //   }
-
-      drawHead([0, 0]);
+      let [ox, oy] = getGridOrigin([0, 0], [8, 0]);    
+      drawHead([ox, oy]);
+      ox, oy = getGridOrigin([0, 0], [8, 0]);   
       // drawBody([0, 0]);
       // drawLeg([0, 0]);
 
@@ -202,7 +203,7 @@ const script: ScriptDef = (generator: Generator) => {
 
   // Background
 
-  // generator.drawImage("Foreground", [0, 0]);
+  generator.drawImage("Foreground", [0, 0]);
 
   //Fold Lines
 
