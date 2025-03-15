@@ -71,21 +71,19 @@ const script: ScriptDef = (generator: Generator) => {
   generator.defineTextureInput("Sheep", {
     standardWidth: 64,
     standardHeight: 32,
-    choices: [
-      "Sheep"
-    ],
+    choices: [],
   });
 
   generator.defineTextureInput("Sheep Wool", {
     standardWidth: 64,
     standardHeight: 32,
-    choices: ["Sheep Wool"],
+    choices: [],
   });
 
   generator.defineTextureInput("Sheep Undercoat", {
     standardWidth: 64,
     standardHeight: 32,
-    choices: ["Sheep Undercoat"],
+    choices: [],
   });
 
 
