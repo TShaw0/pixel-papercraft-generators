@@ -161,6 +161,8 @@ const script: ScriptDef = (generator: Generator) => {
   } 
 
   // Draw Sheep
+
+
   const drawSheep = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
@@ -201,6 +203,13 @@ const script: ScriptDef = (generator: Generator) => {
   };
 
   // Draw Wool
+
+    /*
+  Instrux for finding dimesnions:
+  - new wool dimensions = 2 * (old wool - body) + body = (old wool - body) + old wool
+  old wool = body + some offset
+  new wool = body + 2 ssame offset
+  */ 
   const drawWool = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
