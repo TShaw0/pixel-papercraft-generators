@@ -18,7 +18,7 @@ import sheepImage from "./textures/sheep.png";
 import sheepWoolImage from "./textures/sheep_wool.png";
 import sheepUndercoatImage from "./textures/sheep_wool_undercoat.png";
 
-import foregroundImage from "./images/Foreground.png";
+import foregroundImage from "./images/Foreground1.png";
 import foldsImage from "./images/Folds.png";
 import labelsImage from "./images/Labels.png";
 
@@ -108,7 +108,7 @@ const script: ScriptDef = (generator: Generator) => {
     "Orange",
   ]);
 
-  generator.defineBooleanInput("Show Folds", true);
+  generator.defineBooleanInput("Show Folds", false);
 
   generator.defineBooleanInput("Show Labels", false);
 
@@ -188,15 +188,15 @@ const script: ScriptDef = (generator: Generator) => {
     
     let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
     drawHead([ox, oy]); 
-    [ox, oy] = getGridOrigin([1, 17], [0, 0]);
+    [ox, oy] = getGridOrigin([0, 6], [16, 0]);
     drawBody([ox, oy]);
-    [ox, oy] = getGridOrigin([0, 11], [12, 0]);
+    [ox, oy] = getGridOrigin([8, 9], [12, 0]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([5, 11], [-4, 0]);
+    [ox, oy] = getGridOrigin([8, 19], [12, 0]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([10, 11], [-28, 0]);
+    [ox, oy] = getGridOrigin([13, 9], [20, 0]);
     drawLeg([ox, oy], true);
-    [ox, oy] = getGridOrigin([15, 11], [-44, 0]);
+    [ox, oy] = getGridOrigin([13, 19], [20, 0]);
     drawLeg([ox, oy], true);
 
 
@@ -213,37 +213,39 @@ const script: ScriptDef = (generator: Generator) => {
   const drawWool = (texture: string, tint: string) => {
     // Draw Head
     function drawHead([ox, oy]: [number, number]) {
-      const dimensions: Dimensions = [52, 52, 52];
+      const dimensions: Dimensions = [58, 58, 58];
       minecraftGenerator.drawCuboid(texture, wool.head, [ox, oy], dimensions, { center: "Back", blend: { kind: "MultiplyHex", hex: tint } });
     }
 
     // Draw Body
     function drawBody([ox, oy]: [number, number]) {
-      const dimensions: Dimensions = [78, 142, 62];
-      minecraftGenerator.drawCuboid(texture, wool.body, [ox, oy], dimensions, { center: "Back", blend: { kind: "MultiplyHex", hex: tint } });
+      const dimensions: Dimensions = [92, 156, 76];
+      minecraftGenerator.drawCuboid(texture, wool.body, [ox, oy], dimensions, {rotate: 90.0, center: "Back", blend: { kind: "MultiplyHex", hex: tint } });
     }
     // Draw Leg
     function drawLeg([ox, oy]: [number, number], leftSide: boolean,) {
-      const dimensions: Dimensions = [36, 52, 36];
+      const dimensions: Dimensions = [40, 56, 40];
       if (leftSide){
-        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 16], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
+        generator.drawTexture(texture, wool.leg.top, [ox + 80, oy, 40, 40], {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } }); // draw top face
       }
       else {
-        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 16], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
+        generator.drawTexture(texture, wool.leg.top, [ox + 40, oy, 40, 40], {blend: { kind: "MultiplyHex", hex: tint } }); // draw top face
       }
     }
     
-    let [ox, oy] = getGridOrigin([0, 6], [16, -8]);
+    let [ox, oy] = getGridOrigin([10, 14], [9, -7]);
     drawHead([ox, oy]); 
-    [ox, oy] = getGridOrigin([7, 17], [66, -12]);
+    [ox, oy] = getGridOrigin([1, 12], [0, 16]);
     drawBody([ox, oy]);
-    [ox, oy] = getGridOrigin([8, 1], [0, -4]);
+    [ox, oy] = getGridOrigin([8, 1], [-10, -16]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([13, 1], [0, -4]);
+    [ox, oy] = getGridOrigin([13, 1], [-6, -16]);
     drawLeg([ox, oy], true);
-    [ox, oy] = getGridOrigin([8, 6], [0, 8]);
+    [ox, oy] = getGridOrigin([8, 5], [-10, -3]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([13, 6], [0, 8]);
+    [ox, oy] = getGridOrigin([13, 5], [-6, -3]);
     drawLeg([ox, oy], true);
 
 
