@@ -106,6 +106,7 @@ const script: ScriptDef = (generator: Generator) => {
     "Light Blue",
     "Magenta",
     "Orange",
+    "None",
   ]);
 
   generator.defineBooleanInput("Show Folds", false);
@@ -117,39 +118,41 @@ const script: ScriptDef = (generator: Generator) => {
   const woolColor = (() => {
     switch (generator.getSelectInputValue("Sheep Wool Color")) {
       case "Black":
-        return "1D1D21";
+        return "151518";
       case "Red":
-        return "B02E26";
+        return "84221C";
       case "Green":
-        return "5E7C16";
+        return "465D10";
       case "Brown":
-        return "835432";
+        return "623F25";
       case "Blue":
-        return "3C44AA";
+        return "2D337F";
       case "Purple":
-        return "8932B8";
+        return "66258A";
       case "Cyan":
-        return "169C9C";
+        return "107575";
       case "Light Gray":
-        return "9D9D97";
+        return "757571";
       case "Gray":
-        return "474F52";
+        return "353B3D";
       case "Pink":
-        return "F38BAA";
+        return "B6687F";
       case "Lime":
-        return "80C71F";
+        return "609517";
       case "Yellow":
-        return "FED83D";
+        return "BEA22D";
       case "Light Blue":
-        return "3AB3DA";
+        return "2B86A3";
       case "Magenta":
-        return "C74EBD";
+        return "953A8D";
       case "Orange":
-        return "F9801D";
+        return "BA6015";
       case "White":
-        return "F9FFFE";
+        return "E6E6E6";
+        case "None":
+          return "None";
       default:
-        return "F9FFFE";
+        return "E6E6E6";
     }
   })();
 
@@ -186,17 +189,17 @@ const script: ScriptDef = (generator: Generator) => {
       }
     }
     
-    let [ox, oy] = getGridOrigin([0, 0], [8, 0]);
+    let [ox, oy] = getGridOrigin([5, 0], [17, 0]);
     drawHead([ox, oy]); 
-    [ox, oy] = getGridOrigin([0, 6], [16, 0]);
+    [ox, oy] = getGridOrigin([11, 17], [0, 16]);
     drawBody([ox, oy]);
-    [ox, oy] = getGridOrigin([8, 9], [12, 0]);
+    [ox, oy] = getGridOrigin([0, 8], [12, -12]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([8, 19], [12, 0]);
+    [ox, oy] = getGridOrigin([0, 13], [12, 0]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([13, 9], [20, 0]);
+    [ox, oy] = getGridOrigin([14, 8], [-12, -12]);
     drawLeg([ox, oy], true);
-    [ox, oy] = getGridOrigin([13, 19], [20, 0]);
+    [ox, oy] = getGridOrigin([14, 13], [-12, 0]);
     drawLeg([ox, oy], true);
 
 
@@ -220,40 +223,45 @@ const script: ScriptDef = (generator: Generator) => {
     // Draw Body
     function drawBody([ox, oy]: [number, number]) {
       const dimensions: Dimensions = [92, 156, 76];
-      minecraftGenerator.drawCuboid(texture, wool.body, [ox, oy], dimensions, {rotate: 90.0, center: "Back", blend: { kind: "MultiplyHex", hex: tint } });
+      minecraftGenerator.drawCuboid(texture, wool.body, [ox, oy - 156], dimensions, {rotate: 180.0, center: "Front", orientation:"South", blend: { kind: "MultiplyHex", hex: tint } });
+      generator.drawTexture(texture, [48, 29, 8, 1], [ox + 76, oy - 12, 92, 12], { blend: { kind: "MultiplyHex", hex: tint }} ) // edge - at the top
+      generator.drawTexture(texture, [55, 14, 1, 16], [ox - 12, oy + 76, 12, 156], { blend: { kind: "MultiplyHex", hex: tint }} ) // edge - left long side
+      generator.drawTexture(texture, [48, 14, 1, 16], [ox + 244, oy + 76, 12, 156], { blend: { kind: "MultiplyHex", hex: tint }} ) // edge - right long side
+      generator.drawTexture(texture, [41, 8, 1, 6], [ox + 32, oy + 200, 12, 76], {rotate: -90.0, flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint }} ) // edge - left short side
+      generator.drawTexture(texture, [34, 8, 1, 6], [ox + 200, oy + 200, 12, 76], {rotate: 90.0, flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint }} ) // edge - right short side
     }
     // Draw Leg
     function drawLeg([ox, oy]: [number, number], leftSide: boolean,) {
       const dimensions: Dimensions = [40, 56, 40];
       if (leftSide){
-        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 16], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
-        generator.drawTexture(texture, wool.leg.top, [ox + 80, oy, 40, 40], {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } }); // draw top face
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 56], dimensions, {flip: "Horizontal", blend: { kind: "MultiplyHex", hex: tint } });
+        generator.fillRectangle([ox + 80, oy - 56, 40, 40], "ffffffff"); // cover top face for convenience
       }
       else {
-        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 16], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
-        generator.drawTexture(texture, wool.leg.top, [ox + 40, oy, 40, 40], {blend: { kind: "MultiplyHex", hex: tint } }); // draw top face
+        minecraftGenerator.drawCuboid(texture, wool.leg, [ox, oy - 56], dimensions, {blend: { kind: "MultiplyHex", hex: tint } });
+        generator.fillRectangle([ox + 40, oy - 56, 40, 40], "ffffffff"); // cover top face for convenience
       }
     }
     
-    let [ox, oy] = getGridOrigin([10, 14], [9, -7]);
+    let [ox, oy] = getGridOrigin([0, 19], [12, 6]);
     drawHead([ox, oy]); 
-    [ox, oy] = getGridOrigin([1, 12], [0, 16]);
+    [ox, oy] = getGridOrigin([5, 6], [6, -4]);
     drawBody([ox, oy]);
-    [ox, oy] = getGridOrigin([8, 1], [-10, -16]);
+    [ox, oy] = getGridOrigin([0, 4], [7, 16]);
     drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([13, 1], [-6, -16]);
+    [ox, oy] = getGridOrigin([0, 1], [7, -8]);
+    drawLeg([ox, oy], false);
+    [ox, oy] = getGridOrigin([13, 4], [-6, 16]);
     drawLeg([ox, oy], true);
-    [ox, oy] = getGridOrigin([8, 5], [-10, -3]);
-    drawLeg([ox, oy], false);
-    [ox, oy] = getGridOrigin([13, 5], [-6, -3]);
+    [ox, oy] = getGridOrigin([13, 1], [-6, -8]);
     drawLeg([ox, oy], true);
 
 
   };
 
   drawSheep("Sheep", "None"); // draw sheep
-  drawSheep("Sheep Undercoat", woolColor) // draw undercoat
-  drawWool("Sheep Wool", woolColor); // draw collar 
+  drawSheep("Sheep Undercoat", woolColor == "E6E6E6" ? "None" : woolColor) // draw undercoat
+  drawWool("Sheep Wool", woolColor); // draw wool 
 
   // Background
 
